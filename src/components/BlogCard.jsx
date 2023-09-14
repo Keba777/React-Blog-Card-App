@@ -5,9 +5,18 @@ import Image from "./Image";
 import Author from "./Author";
 import Date from "./Date";
 import Summary from "./Summary";
+import Like from "./Like";
+import { useState } from "react";
+import Comment from "./Comment";
 
 // Define the BlogCard component that displays a blog post
 const BlogCard = ({ title, image, author, date, summary }) => {
+  const [likeCount, setLikeCount] = useState(0);
+
+  const handleLikeClick = (liked) => {
+    setLikeCount(liked ? likeCount + 1 : likeCount - 1);
+  };
+
   return (
     <Card>
       <Title title={title} /> {/* Display the blog post title */}
@@ -17,6 +26,8 @@ const BlogCard = ({ title, image, author, date, summary }) => {
         <Summary summary={summary} /> {/* Display the blog post summary */}
         <Date date={date} /> {/* Display the blog post publication date */}
       </div>
+      <Like likeCount={likeCount} onLikeClick={handleLikeClick} />
+      <Comment />
     </Card>
   );
 };
